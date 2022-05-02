@@ -41,7 +41,33 @@ public class MeteoDAO {
 
 	public List<Rilevamento> getAllRilevamentiLocalitaMese(int mese, String localita) {
 
-		return null;
+		final String sql = "Select localita,data,umidita "
+				+ "from situazione "
+				+ "where localita=?";
+
+		List<Rilevamento> rilevamenti = new ArrayList<Rilevamento>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, localita);
+			ResultSet rs = st.executeQuery();
+			
+			while (rs.next()) {
+
+				Rilevamento r = new Rilevamento(rs.getString("Localita"), rs.getDate("Data"), rs.getInt("Umidita"));
+				if(r.getData().getMonth()==mese)
+					rilevamenti.add(r);
+			}
+
+			conn.close();
+			return rilevamenti;
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
 

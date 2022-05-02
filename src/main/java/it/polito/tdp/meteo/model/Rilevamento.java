@@ -1,5 +1,6 @@
 package it.polito.tdp.meteo.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Rilevamento {
@@ -8,9 +9,9 @@ public class Rilevamento {
 	private Date data;
 	private int umidita;
 
-	public Rilevamento(String localita, Date data, int umidita) {
+	public Rilevamento(String localita, Date date, int umidita) {
 		this.localita = localita;
-		this.data = data;
+		this.data = date;
 		this.umidita = umidita;
 	}
 
